@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research — Ahaan Mehta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --serif: 'EB Garamond', Georgia, serif;
+  --sans: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+html, body { background: #fff; color: #000; }
+body {
+  font-family: var(--sans);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 36px 120px;
+}
+
+/* NAV — exact match with home */
+nav {
+  padding: 32px 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.monogram {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #000;
+  text-decoration: none;
+  margin-right: 4px;
+  padding-bottom: 2px;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.15s;
+}
+.monogram .slash { color: #c8c8c8; margin-right: 1px; }
+.monogram:hover { border-bottom-color: #000; }
+.nav-links { display: flex; gap: 24px; margin-left: auto; }
+nav a {
+  text-decoration: none;
+  color: #000;
+  font-size: 13.5px;
+  font-weight: 400;
+  font-family: var(--sans);
+  padding-bottom: 2px;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.15s;
+}
+nav a.active { font-weight: 500; border-bottom-color: #000; }
+nav a:hover { border-bottom-color: #000; }
+
+/* INTRO — centered, minimal */
+.intro {
+  text-align: center;
+  margin: 130px auto 0;
+  max-width: 560px;
+}
+.intro p {
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.5;
+  color: #1a1a1a;
+  letter-spacing: 0.1px;
+}
+.intro p + p {
+  margin-top: 14px;
+  color: #6a6459;
+  font-size: 17px;
+}
+
+.intro-divider {
+  width: 36px;
+  height: 1px;
+  background: #e3ddcd;
+  margin: 80px auto 0;
+}
+
+/* CONTENTS */
+.contents {
+  margin-top: 72px;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: #b6b1a4;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.toc { list-style: none; }
+.toc li {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 7px 0;
+  font-family: var(--serif);
+}
+.toc .num {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 400;
+  color: #bdb7a7;
+  width: 36px;
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+  font-variant: small-caps;
+}
+.toc .leader {
+  flex: 1;
+  border-bottom: 1px dotted #d8d2c4;
+  transform: translateY(-4px);
+  min-width: 24px;
+}
+.toc .title {
+  font-family: var(--serif);
+  font-size: 16px;
+  color: #111;
+  text-decoration: none;
+  text-align: right;
+  transition: color 0.15s ease;
+}
+.toc li:hover .title { color: #000; }
+.toc li:hover .leader { border-bottom-color: #b3ad9d; }
+
+.contents-divider {
+  width: 100%;
+  height: 1px;
+  background: #ece8de;
+  margin: 40px 0 0;
+}
+
+/* PAPERS */
+.papers { margin-top: 8px; }
+.paper {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 200px;
+  gap: 48px;
+  padding: 44px 0;
+  border-bottom: 1px solid #f1eee5;
+  align-items: start;
+  scroll-margin-top: 24px;
+}
+.paper:last-child { border-bottom: none; }
+
+.paper-num {
+  font-family: var(--serif);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: #c2bcae;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-variant: small-caps;
+}
+
+.paper-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9a9489;
+  margin-bottom: 14px;
+}
+.paper-meta .k { color: #cbc6b9; margin-right: 5px; }
+.paper-meta .v { color: #6a6459; }
+.paper-meta .item { white-space: nowrap; }
+
+.paper-title {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.1px;
+  color: #111;
+  margin-bottom: 12px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.paper-title:hover { color: #000; }
+
+.paper-abstract {
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.55;
+  color: #4a4540;
+  max-width: 460px;
+  margin-bottom: 18px;
+  letter-spacing: 0.05px;
+}
+
+.paper-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-family: var(--sans);
+  font-size: 11.5px;
+}
+.paper-actions button,
+.paper-actions a.pa {
+  background: none;
+  border: none;
+  font: inherit;
+  color: #1a1a1a;
+  cursor: pointer;
+  padding: 4px 0;
+  text-decoration: none;
+  border-bottom: 1px solid #d4d0c4;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.paper-actions button:hover,
+.paper-actions a.pa:hover { border-bottom-color: #000; color: #000; }
+.paper-actions .arrow {
+  font-size: 10px;
+  transition: transform 0.2s ease;
+}
+.paper-actions button:hover .arrow,
+.paper-actions a.pa:hover .arrow { transform: translateX(2px); }
+
+/* GHOST PREVIEW */
+.ghost {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 8.5 / 11;
+  background: #fbf9f3;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.04),
+    0 18px 36px -14px rgba(40,35,25,0.18),
+    0 6px 14px -10px rgba(40,35,25,0.12);
+  filter: saturate(0.55) contrast(0.97);
+  transform: translateY(0) rotate(0deg);
+  transition: filter 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+  display: block;
+}
+.ghost canvas {
+  position: absolute; inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #fff;
+}
+.ghost .ghost-loading {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: #c8c2b3;
+  text-transform: uppercase;
+}
+.ghost::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 65%, rgba(245,242,234,0.4) 100%);
+  pointer-events: none;
+}
+.paper:hover .ghost {
+  filter: saturate(1) contrast(1);
+  transform: translateY(-3px) rotate(-0.3deg);
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.04),
+    0 28px 48px -16px rgba(40,35,25,0.28),
+    0 10px 22px -10px rgba(40,35,25,0.18);
+}
+
+/* LIGHTBOX */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(18,16,12,0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 40px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.lightbox.open { display: flex; opacity: 1; }
+.lightbox-card {
+  position: relative;
+  width: min(900px, 100%);
+  height: 100%;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.45);
+  display: flex;
+  flex-direction: column;
+}
+.lightbox-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-bottom: 1px solid #eee;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #6a6459;
+}
+.lightbox-bar .lb-title {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+  letter-spacing: -0.1px;
+  max-width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lightbox-bar .lb-actions { display: flex; gap: 8px; align-items: center; }
+.lightbox-bar a, .lightbox-bar button {
+  font: inherit;
+  background: none;
+  border: none;
+  color: #6a6459;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.15s ease, color 0.15s ease;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+}
+.lightbox-bar a:hover, .lightbox-bar button:hover { background: #f3f0e9; color: #111; }
+.lightbox-bar .lb-close { font-size: 18px; line-height: 1; padding: 2px 8px; }
+.lightbox-frame {
+  flex: 1;
+  border: none;
+  background: #f8f6f0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 720px) {
+  .paper { grid-template-columns: 1fr; gap: 28px; }
+  .ghost { max-width: 240px; }
+  .toc .title { font-size: 14px; }
+  .intro { margin-top: 80px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="monogram" aria-label="Ahaan Mehta — home"><span class="slash">/</span>am</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="research.html" class="active">Research</a>
+    </div>
+  </nav>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <p>An archive of papers and technical writing from the last few years.</p>
+    <p>Currently exploring bio-neural computing and algorithms for financial markets.</p>
+  </section>
+
+  <div class="intro-divider"></div>
+
+  <!-- CONTENTS -->
+  <section class="contents">
+    <div class="section-label">Contents</div>
+    <ul class="toc">
+      <li>
+        <span class="num">IV</span>
+        <span class="leader"></span>
+        <a class="title" href="#p-trex">Time-Resolving Supermassive Black Holes from Low-Earth Orbit</a>
+      </li>
+      <li>
+        <span class="num">III</span>
+        <span class="leader"></span>
+        <a class="title" href="#p-nlu">Transformers vs. Recurrent Networks for Natural Language Understanding</a>
+      </li>
+      <li>
+        <span class="num">II</span>
+        <span class="leader"></span>
+        <a class="title" href="#p-solar">Optimum Tilt Angle for Photovoltaic Solar Panels</a>
+      </li>
+      <li>
+        <span class="num">I</span>
+        <span class="leader"></span>
+        <a class="title" href="#p-rubia">Effect of Mordants on Absorption of <em>Rubia Cardifolia</em> Dye</a>
+      </li>
+    </ul>
+    <div class="contents-divider"></div>
+  </section>
+
+  <!-- PAPERS -->
+  <section class="papers">
+
+    <article class="paper" id="p-trex" style="padding: 300px 0px 44px">
+      <div class="paper-body">
+        <div class="paper-num">IV</div>
+        <div class="paper-meta">
+          <span class="item"><span class="k">Field</span><span class="v">Astrophysics · Instrumentation</span></span>
+          <span class="item"><span class="k">Affiliation</span><span class="v">T-REX</span></span>
+        </div>
+        <a class="paper-title" data-open="trex">Time-Resolving Supermassive Black Holes from Low-Earth Orbit</a>
+        <p class="paper-abstract">A research note on instrumentation for time-resolved X-ray observation of supermassive black holes from a CubeSat-class platform. Examines the trade-space between aperture, photon-counting cadence, and onboard data reduction, and proposes a pipeline tuned for variability studies under tight telemetry budgets.</p>
+        <div class="paper-actions">
+          <button data-open="trex">Quick read <span class="arrow">→</span></button>
+          <a class="pa" href="papers/trex.pdf" target="_blank" rel="noopener">PDF ↗</a>
+        </div>
+      </div>
+      <a class="ghost" data-open="trex" data-pdf="papers/trex.pdf" aria-label="Preview T-REX paper">
+        <div class="ghost-loading">Loading…</div>
+      </a>
+    </article>
+
+    <article class="paper" id="p-nlu">
+      <div class="paper-body">
+        <div class="paper-num">III</div>
+        <div class="paper-meta">
+          <span class="item"><span class="k">Field</span><span class="v">NLU · Deep Learning</span></span>
+          <span class="item"><span class="k">Affiliation</span><span class="v">UT Dallas</span></span>
+        </div>
+        <a class="paper-title" data-open="nlu">Comparing Transformer Neural Architecture to Recurrent Neural Networks for Natural Language Understanding</a>
+        <p class="paper-abstract">A systematic comparison of transformer- and RNN-based architectures on common NLU benchmarks — classification accuracy, inference cost, and scaling behaviour under limited data. Isolates where attention provides genuine inductive bias and where its gains collapse back to better-tuned recurrence.</p>
+        <div class="paper-actions">
+          <button data-open="nlu">Quick read <span class="arrow">→</span></button>
+          <a class="pa" href="papers/nlu-transformers.pdf" target="_blank" rel="noopener">PDF ↗</a>
+        </div>
+      </div>
+      <a class="ghost" data-open="nlu" data-pdf="papers/nlu-transformers.pdf" aria-label="Preview NLU paper">
+        <div class="ghost-loading">Loading…</div>
+      </a>
+    </article>
+
+    <article class="paper" id="p-solar">
+      <div class="paper-body">
+        <div class="paper-num">II</div>
+        <div class="paper-meta">
+          <span class="item"><span class="k">Field</span><span class="v">Applied Mathematics</span></span>
+          <span class="item"><span class="k">Affiliation</span><span class="v">IB Mathematics</span></span>
+        </div>
+        <a class="paper-title" data-open="solar">Optimum Tilt Angle for Photovoltaic Solar Panels</a>
+        <p class="paper-abstract">A derivation of the optimal fixed tilt angle for photovoltaic panels at a given latitude, modelled as a calculus optimisation problem against annual solar irradiance. Compares the closed-form result against empirical solar position data and quantifies the energy penalty of common installer rules of thumb.</p>
+        <div class="paper-actions">
+          <button data-open="solar">Quick read <span class="arrow">→</span></button>
+          <a class="pa" href="papers/solar-tilt.pdf" target="_blank" rel="noopener">PDF ↗</a>
+        </div>
+      </div>
+      <a class="ghost" data-open="solar" data-pdf="papers/solar-tilt.pdf" aria-label="Preview solar tilt paper">
+        <div class="ghost-loading">Loading…</div>
+      </a>
+    </article>
+
+    <article class="paper" id="p-rubia">
+      <div class="paper-body">
+        <div class="paper-num">I</div>
+        <div class="paper-meta">
+          <span class="item"><span class="k">Field</span><span class="v">Chemistry · Spectroscopy</span></span>
+          <span class="item"><span class="k">Publication</span><span class="v">IJFMR</span></span>
+        </div>
+        <a class="paper-title" data-open="rubia">Effect of Mordants on Percentage Absorption of <em>Rubia&nbsp;Cardifolia</em> Dye</a>
+        <p class="paper-abstract">An experimental study measuring how different metal-salt mordants modulate the spectral absorption of <em>Rubia cardifolia</em> dye on cotton substrates. UV-Vis spectroscopy compares absorption efficiency across mordant species and concentrations, with a discussion of the underlying complexation chemistry.</p>
+        <div class="paper-actions">
+          <button data-open="rubia">Quick read <span class="arrow">→</span></button>
+          <a class="pa" href="papers/rubia-mordants.pdf" target="_blank" rel="noopener">PDF ↗</a>
+        </div>
+      </div>
+      <a class="ghost" data-open="rubia" data-pdf="papers/rubia-mordants.pdf" aria-label="Preview rubia paper">
+        <div class="ghost-loading">Loading…</div>
+      </a>
+    </article>
+
+  </section>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Paper preview">
+  <div class="lightbox-card">
+    <div class="lightbox-bar">
+      <div class="lb-title" id="lb-title">—</div>
+      <div class="lb-actions">
+        <a id="lb-open" href="#" target="_blank" rel="noopener">Open ↗</a>
+        <button class="lb-close" id="lb-close" aria-label="Close">×</button>
+      </div>
+    </div>
+    <iframe class="lightbox-frame" id="lb-frame" title="Paper PDF"></iframe>
+  </div>
+</div>
+
+<!-- pdf.js for thumbnail rendering -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+(function(){
+  // pdf.js worker
+  if (window.pdfjsLib) {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
+
+  // ---------- Ghost preview rendering ----------
+  async function renderGhost(el) {
+    const url = el.getAttribute('data-pdf');
+    if (!url || !window.pdfjsLib) return;
+    try {
+      const pdf = await window.pdfjsLib.getDocument(url).promise;
+      const page = await pdf.getPage(1);
+      const baseViewport = page.getViewport({ scale: 1 });
+
+      const dpr = window.devicePixelRatio || 1;
+      const targetWidth = el.clientWidth || 200;
+      const scale = (targetWidth * dpr) / baseViewport.width;
+      const viewport = page.getViewport({ scale });
+
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(viewport.width);
+      canvas.height = Math.round(viewport.height);
+      const ctx = canvas.getContext('2d');
+      await page.render({ canvasContext: ctx, viewport }).promise;
+
+      // Replace loading state
+      el.querySelectorAll('.ghost-loading').forEach(n => n.remove());
+      el.appendChild(canvas);
+    } catch (err) {
+      console.warn('Ghost render failed for', url, err);
+      const loading = el.querySelector('.ghost-loading');
+      if (loading) loading.textContent = 'Preview unavailable';
+    }
+  }
+
+  // Lazy-render as ghosts enter viewport
+  const ghosts = document.querySelectorAll('.ghost[data-pdf]');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          io.unobserve(entry.target);
+          renderGhost(entry.target);
+        }
+      });
+    }, { rootMargin: '200px 0px' });
+    ghosts.forEach(g => io.observe(g));
+  } else {
+    ghosts.forEach(renderGhost);
+  }
+
+  // ---------- Lightbox ----------
+  const papers = {
+    trex:  { title: 'Time-Resolving Supermassive Black Holes from Low-Earth Orbit', src: 'papers/trex.pdf' },
+    nlu:   { title: 'Transformers vs. RNNs for Natural Language Understanding',     src: 'papers/nlu-transformers.pdf' },
+    solar: { title: 'Optimum Tilt Angle for Photovoltaic Solar Panels',              src: 'papers/solar-tilt.pdf' },
+    rubia: { title: 'Effect of Mordants on Rubia Cardifolia Dye Absorption',         src: 'papers/rubia-mordants.pdf' }
+  };
+  const lb = document.getElementById('lightbox');
+  const lbTitle = document.getElementById('lb-title');
+  const lbFrame = document.getElementById('lb-frame');
+  const lbOpen = document.getElementById('lb-open');
+  const close = () => {
+    lb.classList.remove('open');
+    lbFrame.src = 'about:blank';
+    document.body.style.overflow = '';
+  };
+  const open = (key) => {
+    const p = papers[key]; if (!p || !p.src) return;
+    lbTitle.textContent = p.title;
+    lbFrame.src = p.src + '#toolbar=1&navpanes=0&view=FitH';
+    lbOpen.href = p.src;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  document.querySelectorAll('[data-open]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      open(el.getAttribute('data-open'));
+    });
+  });
+  document.getElementById('lb-close').addEventListener('click', close);
+  lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+  // Smooth scroll for TOC links
+  document.querySelectorAll('.toc a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', '#' + id);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
