@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summer at Dex (YC S19) · Ahaan Mehta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+/* POST */
+.post {
+  max-width: 620px;
+  margin: 90px auto 0;
+}
+.back-link {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--warm-date);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.back-link:hover { color: var(--text-1); }
+
+.post-date {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--warm-label);
+  margin: 48px 0 14px;
+}
+.post h1 {
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+  color: var(--text-1);
+  margin-bottom: 36px;
+}
+
+.post-body p {
+  font-family: var(--serif);
+  font-size: 17.5px;
+  line-height: 1.72;
+  color: var(--warm-ink);
+  letter-spacing: 0.05px;
+  margin-bottom: 22px;
+}
+.post-body h2 {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 500;
+  color: var(--text-1);
+  margin: 40px 0 14px;
+}
+.post-body a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--warm-rule);
+  transition: border-color 0.15s;
+}
+.post-body a:hover { border-bottom-color: var(--text); }
+.post-body em { font-style: italic; }
+.post-body blockquote {
+  border-left: 2px solid var(--warm-rule-2);
+  padding-left: 20px;
+  margin: 28px 0;
+  color: var(--warm-text);
+  font-style: italic;
+}
+.post-body code {
+  font-family: var(--mono);
+  font-size: 14px;
+  background: var(--warm-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.post-body ul, .post-body ol {
+  font-family: var(--serif);
+  font-size: 17.5px;
+  line-height: 1.72;
+  color: var(--warm-ink);
+  margin: 0 0 22px 24px;
+}
+
+.post-end {
+  width: 36px;
+  height: 1px;
+  background: var(--warm-rule-2);
+  margin: 56px 0 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .post { margin-top: 56px; }
+  .post h1 { font-size: 25px; }
+  .post-body p, .post-body ul, .post-body ol { font-size: 16.5px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <nav>
+      <button type="button" class="monogram" data-theme-toggle aria-label="Switch between light and dark"><span class="slash pre">/</span><span class="mark">am</span><span class="slash post">/</span></button>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../research.html">Research</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../thoughts.html" class="active">Thoughts</a>
+      </div>
+    </nav>
+    <div class="clocks" aria-label="Local time in Bangalore and Providence"></div>
+  </div>
+
+<!-- POST -->
+  <article class="post">
+    <a class="back-link" href="../thoughts.html">← All entries</a>
+
+    <div class="post-date">August 2026</div>
+    <h1>Summer at Dex (YC S19)</h1>
+
+    <div class="post-body">
+      <p>I spent twelve weeks this summer as a software engineering intern at <a href="https://getdex.com" target="_blank" rel="noopener">Dex</a>, a personal CRM that runs on web, mobile and desktop. Roughly 59 merged pull requests and 213 commits across the webapp, the React Native app and the API. Two of those things were features that did not exist before I got there. This is what building them actually taught me.</p>
+
+      <h2>Week one was not glamorous</h2>
+
+      <p>My first commit was titled "figma mapping of home page".</p>
+
+      <p>Dex was replacing its entire web presence with something the team called Web v5. The new marketing site existed mostly as Figma files, while the live site had animations rendering black borders, typography drifting between pages, and layouts that fell apart on small screens. My job was to close that gap page by page: home, pricing, security, about, integrations, use cases, resources, product.</p>
+
+      <p>It is easy to be snobby about this kind of work. I would argue the opposite. Four weeks of pixel-matching nine pages taught me the codebase faster than any onboarding doc could have, because pixel-matching forces you to read every component rather than only the ones someone pointed you at. By the time I was handed something hard, I already knew where everything lived.</p>
+
+      <p>The site shipped and became the front door for the launch. In the first fully tracked period it converted 21.2% of visitors into signups at a 6.35% bounce rate.</p>
+
+      <h2>Then the funnel</h2>
+
+      <p>Dex's preboard is the product tour a new user walks before signing up, and at roughly five thousand entries a month it is the highest-leverage funnel in the product. It ended by dumping people on a <em>Login</em> page. New users. On a login page.</p>
+
+      <p>I rerouted completion to Create Account, realigned the flow to Figma, and regenerated the four Lottie files behind it, about 150,000 lines of animation JSON. Preboard to account conversion went from 42.5% to 53.0%, a relative improvement of around 25%, with a median time to account of 1 minute 13 seconds.</p>
+
+      <p>The honest version: that number is the new flow measured after the v5 migration, so the routing change is one contributor among several rather than provably the whole cause. The intermediate window, while the legacy flow was still serving, showed no lift at all. The gains arrived with the complete new flow, not with my commit alone.</p>
+
+      <h2>The Network map</h2>
+
+      <p>This is the part I would want to be asked about.</p>
+
+      <p>Dex users had no spatial way to see how their network was organized: which groups exist, which contacts belong to none of them. The spec was mostly a problem statement with one hard constraint attached. <strong>Stay smooth at 5,000 or more nodes.</strong></p>
+
+      <p>That constraint is the entire design. Five thousand nodes rules out SVG and it rules out the DOM, because you cannot put five thousand elements in a document and still hold sixty frames a second while someone is dragging one of them around. So: HTML Canvas, a force-directed layout, arranged egocentrically in three radial layers for groups, grouped contacts and empty groups, with groups that share contacts pulled into clusters.</p>
+
+      <p>Getting that to draw is not the hard part. Getting it to stay smooth is. Three things mattered more than the rest.</p>
+
+      <p><strong>Avatar sprite caching.</strong> Decoding and drawing hundreds of profile images every frame will wreck your frame rate on its own, before any of your layout code gets blamed for it.</p>
+
+      <p><strong>Spatial indexing.</strong> Hit testing and neighbour queries cannot be a linear scan over every node on every pointer move, or the map gets slower exactly as it gets more useful.</p>
+
+      <p><strong>Minimizing rebuild churn.</strong> This is the one I would have missed in May. The expensive operation is not painting a frame. It is deciding to rebuild the layout when nothing actually required it.</p>
+
+      <p>I built the design prototype three days after the spec was written, took it through review with our designer, then shipped the production version. <code>network-canvas.tsx</code> came out around 1,400 lines, plus a tray panel and overlays.</p>
+
+      <p>878 unique users, 14.1% of all 6,214 v5 web-app users, opened it in the first five and a half weeks. It settled at 366 weekly users and became the fifth most-viewed page in the app.</p>
+
+      <h2>The Priority Map</h2>
+
+      <p>The second one went further down the stack. Users had no lightweight way to express how much a given relationship matters, and the spec assigned me the whole column: database migration, design prototype, final implementation.</p>
+
+      <p>So it was a Prisma and PostgreSQL schema plus a migration for ordered, customizable priority tiers. Then REST endpoints and Zod schemas. Then a second canvas surface where contacts sit in tiers and you drag them to reprioritize, with bulk assignment, group filtering and an unprioritized tray. Then the part that decides whether a field is real or just a page: filterable in contacts, a priority picker with search and digit shortcuts, a command-bar shortcut, controls in the contact header.</p>
+
+      <p>811 unique users, 13.1%, over the same five and a half weeks.</p>
+
+      <h2>The sign-out bug</h2>
+
+      <p>Both maps shipped fast. Making them production-grade was my problem, and nobody handed me a QA list, so I wrote my own and filed more than ten bugs against my own work.</p>
+
+      <p>The one I still think about: data was surviving sign-out and could cross between accounts. Sign out, sign in as somebody else in the same browser, and cached records from the previous session were still sitting in IndexedDB. I filed it at 9pm. It was fixed by 8:40 the next morning, about twelve hours, with a proper sign-out wipe and written documentation on cache scoping.</p>
+
+      <p>The lesson was not "be careful with caches". It was that the person most likely to find that bug was me, precisely because I had written the caching layer, and that is exactly why I had to go looking instead of waiting for someone else to trip over it.</p>
+
+      <h2>Two canvases, one engine</h2>
+
+      <p>By August there were two canvas features quietly sharing an avatar cache, canvas helpers and membership layers, mostly by copy-paste. I pulled them into a shared map engine so both surfaces ran the same code.</p>
+
+      <p>That refactor is the work I am quietest about and probably proudest of, because it is the only thing I shipped that made the <em>next</em> feature cheaper rather than the current one better.</p>
+
+      <h2>What I would tell myself in May</h2>
+
+      <p>Ship, then go find what is wrong with it yourself. Nearly every result I care about from this summer arrived after a launch, not at one.</p>
+    </div>
+
+    <div class="post-end"></div>
+  </article>
+
+</div>
+<script src="../site.js"></script>
+</body>
+</html>

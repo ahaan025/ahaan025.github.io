@@ -1,0 +1,444 @@
+/* ════════════════════════════════════════════════
+   SHARED STYLES — loaded by every page.
+   Reset, theme tokens, container, nav, clocks,
+   theme toggle and link-preview cards live here.
+   Page-specific styles stay in each page's <style>.
+   ════════════════════════════════════════════════ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── THEME TOKENS ──
+   Light values below. Dark values are redefined twice:
+   once for people whose OS is dark (unless they picked
+   light here), once for an explicit choice of dark. */
+:root {
+  --serif: 'EB Garamond', Georgia, serif;
+  --sans:  'Inter', system-ui, sans-serif;
+  --mono:  'JetBrains Mono', ui-monospace, monospace;
+
+  --bg:        #ffffff;
+  --bg-raised: #fafafa;
+  --text:      #000000;
+  --text-1:    #0f0f0f;
+  --text-2:    #1a1a1a;
+  --text-3:    #555555;
+  --text-4:    #666666;
+  --text-5:    #777777;
+  --muted:     #888888;
+  --muted-2:   #9a9a9a;
+  --faint:     #aaaaaa;
+  --faint-2:   #bbbbbb;
+  --faint-3:   #cccccc;
+  --faint-4:   #d4d4d4;
+  --faint-5:   #dddddd;
+  --border:    #e4e4e4;
+  --border-2:  #e2e2e2;
+  --border-3:  #e0e0e0;
+  --rule:      #e8e8e8;
+  --rule-2:    #ebebeb;
+  --rule-3:    #eeeeee;
+  --rule-4:    #f2f2f2;
+  --rule-5:    #f4f4f4;
+  --chrome:    #f2f2f2;
+  --shadow:    rgba(0,0,0,0.12);
+  --mark-bg:   #ffffff;
+
+  /* warm paper tones — research / thoughts */
+  --warm-ink:    #2a2620;
+  --warm-ink-2:  #4a4540;
+  --warm-text:   #6a6459;
+  --warm-date:   #9a9489;
+  --warm-hover:  #b3ad9d;
+  --warm-label:  #b6b1a4;
+  --warm-line:   #c2bcae;
+  --warm-line-2: #c8c2b3;
+  --warm-line-3: #cbc6b9;
+  --warm-dot:    #d8d2c4;
+  --warm-rule:   #d4d0c4;
+  --warm-rule-2: #e3ddcd;
+  --warm-rule-3: #ece8de;
+  --warm-bg:     #f7f5ef;
+  --warm-bg-2:   #f8f6f0;
+  --warm-bg-3:   #f3f0e9;
+  --warm-bg-4:   #f1eee5;
+  --warm-bg-5:   #fbf9f3;
+  --warm-bdr:    #bdb7a7;
+}
+
+/* Dark palette, shared by both triggers below. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:        #0e0e10;
+    --bg-raised: #161619;
+    --text:      #ededee;
+    --text-1:    #e6e6e8;
+    --text-2:    #dcdcde;
+    --text-3:    #a9a9ae;
+    --text-4:    #9e9ea4;
+    --text-5:    #97979d;
+    --muted:     #85858c;
+    --muted-2:   #7c7c83;
+    --faint:     #6e6e75;
+    --faint-2:   #5f5f66;
+    --faint-3:   #55555c;
+    --faint-4:   #444449;
+    --faint-5:   #3a3a40;
+    --border:    #2b2b31;
+    --border-2:  #2a2a30;
+    --border-3:  #28282e;
+    --rule:      #26262b;
+    --rule-2:    #242429;
+    --rule-3:    #222227;
+    --rule-4:    #1f1f24;
+    --rule-5:    #1d1d22;
+    --chrome:    #1f1f24;
+    --shadow:    rgba(0,0,0,0.6);
+    --mark-bg:   #f4f4f4;
+
+    --warm-ink:    #e8e3d6;
+    --warm-ink-2:  #cfc9ba;
+    --warm-text:   #a09887;
+    --warm-date:   #837d72;
+    --warm-hover:  #97907f;
+    --warm-label:  #7e786c;
+    --warm-line:   #5a554b;
+    --warm-line-2: #524d44;
+    --warm-line-3: #4b463e;
+    --warm-dot:    #38362e;
+    --warm-rule:   #34322b;
+    --warm-rule-2: #2d2b24;
+    --warm-rule-3: #262521;
+    --warm-bg:     #1a1917;
+    --warm-bg-2:   #191816;
+    --warm-bg-3:   #1c1b18;
+    --warm-bg-4:   #1e1d1a;
+    --warm-bg-5:   #171614;
+    --warm-bdr:    #4f4a41;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:        #0e0e10;
+  --bg-raised: #161619;
+  --text:      #ededee;
+  --text-1:    #e6e6e8;
+  --text-2:    #dcdcde;
+  --text-3:    #a9a9ae;
+  --text-4:    #9e9ea4;
+  --text-5:    #97979d;
+  --muted:     #85858c;
+  --muted-2:   #7c7c83;
+  --faint:     #6e6e75;
+  --faint-2:   #5f5f66;
+  --faint-3:   #55555c;
+  --faint-4:   #444449;
+  --faint-5:   #3a3a40;
+  --border:    #2b2b31;
+  --border-2:  #2a2a30;
+  --border-3:  #28282e;
+  --rule:      #26262b;
+  --rule-2:    #242429;
+  --rule-3:    #222227;
+  --rule-4:    #1f1f24;
+  --rule-5:    #1d1d22;
+  --chrome:    #1f1f24;
+  --shadow:    rgba(0,0,0,0.6);
+  --mark-bg:   #f4f4f4;
+
+  --warm-ink:    #e8e3d6;
+  --warm-ink-2:  #cfc9ba;
+  --warm-text:   #a09887;
+  --warm-date:   #837d72;
+  --warm-hover:  #97907f;
+  --warm-label:  #7e786c;
+  --warm-line:   #5a554b;
+  --warm-line-2: #524d44;
+  --warm-line-3: #4b463e;
+  --warm-dot:    #38362e;
+  --warm-rule:   #34322b;
+  --warm-rule-2: #2d2b24;
+  --warm-rule-3: #262521;
+  --warm-bg:     #1a1917;
+  --warm-bg-2:   #191816;
+  --warm-bg-3:   #1c1b18;
+  --warm-bg-4:   #1e1d1a;
+  --warm-bg-5:   #171614;
+  --warm-bdr:    #4f4a41;
+}
+
+html { background: var(--bg); }
+body {
+  font-family: var(--sans);
+  background: transparent;   /* the sky layer sits behind this */
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 36px 100px;
+}
+
+/* ── TOP BAR: nav left, clocks right ── */
+.topbar {
+  padding: 32px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+  min-width: 0;
+}
+.monogram {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--text);
+  background: none;
+  border: none;
+  padding: 2px 0;
+  margin-right: 4px;
+  cursor: pointer;
+  line-height: 1.6;
+  display: inline-flex;
+  align-items: baseline;
+}
+.monogram .mark { transition: letter-spacing 0.22s ease; }
+.monogram:hover .mark { letter-spacing: 0.04em; }
+.monogram .slash {
+  color: var(--faint-3);
+  transition: color 0.2s ease;
+}
+.monogram:hover .slash { color: var(--text); }
+.monogram .pre  { margin-right: 1px; }
+.monogram .post { margin-left: 1px; display: none; }
+
+/* dark: the slash moves to the other side */
+:root[data-theme="dark"] .monogram .pre  { display: none; }
+:root[data-theme="dark"] .monogram .post { display: inline; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .monogram .pre  { display: none; }
+  :root:not([data-theme="light"]) .monogram .post { display: inline; }
+}
+
+.nav-links { display: flex; gap: 26px; margin-left: auto; }
+nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 400;
+  font-family: var(--serif);
+  letter-spacing: 0.1px;
+  padding-bottom: 2px;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.15s;
+}
+nav a.active { font-weight: 500; border-bottom-color: var(--text); }
+nav a:hover  { border-bottom-color: var(--text); }
+
+/* ── CLOCKS — pinned to the top right of the window ── */
+.clocks {
+  position: fixed;
+  top: 28px;
+  right: 34px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  font-family: var(--mono), ui-monospace, monospace;
+  font-size: 12.5px;
+  letter-spacing: 0.05em;
+  color: var(--text-3);
+  line-height: 1.5;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.clock-row .zone { color: var(--faint); margin-right: 8px; }
+
+
+/* ── WORLD MAP ──
+   A coastline map behind the page with the real day/night
+   terminator drawn on it, recomputed from the sun's position,
+   plus a pin on each city. Masked out through the middle so it
+   never sits under the text. Built by site.js; no JS, no map. */
+.worldmap {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: var(--map-alpha, 0.38);
+  -webkit-mask-image: radial-gradient(ellipse 52% 60% at 50% 48%,
+    rgb(0 0 0 / 0) 0%, rgb(0 0 0 / 0) 46%, rgb(0 0 0 / 1) 98%);
+          mask-image: radial-gradient(ellipse 52% 60% at 50% 48%,
+    rgb(0 0 0 / 0) 0%, rgb(0 0 0 / 0) 46%, rgb(0 0 0 / 1) 98%);
+}
+.worldmap svg { display: block; width: 100%; height: 100%; }
+
+.wm-land  { fill: var(--map-land); stroke: var(--map-coast); stroke-width: 0.22; }
+.wm-night { fill: var(--map-night); opacity: var(--map-night-alpha, 0.34); }
+.wm-term  { fill: none; stroke: var(--map-term); stroke-width: 0.3; }
+
+:root {
+  --map-land:      #e9edf2;
+  --map-coast:     #c8d0da;
+  --map-night:     #1b2340;
+  --map-term:      #9aa6b4;
+}
+:root[data-theme="dark"] {
+  --map-alpha:       0.5;
+  --map-land:        #1b1e26;
+  --map-coast:       #2f3642;
+  --map-night:       #05060a;
+  --map-night-alpha: 0.55;
+  --map-term:        #3d4654;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --map-alpha:       0.5;
+    --map-land:        #1b1e26;
+    --map-coast:       #2f3642;
+    --map-night:       #05060a;
+    --map-night-alpha: 0.55;
+    --map-term:        #3d4654;
+  }
+}
+
+/* Phones: the map competes with the text, so pull it right back. */
+@media (max-width: 640px) {
+  .worldmap { opacity: calc(var(--map-alpha, 0.38) * 0.55); }
+}
+
+/* ── LINK PREVIEW CARD (built by site.js) ── */
+.preview-card {
+  position: fixed;
+  width: 300px;
+  background: var(--bg);
+  border: 1px solid var(--border-2);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px var(--shadow);
+  z-index: 200;
+  pointer-events: none;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(4px) scale(0.985);
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+.preview-card.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+
+.pc-chrome {
+  background: var(--chrome);
+  border-bottom: 1px solid var(--border-3);
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pc-dots { display: flex; gap: 4px; flex-shrink: 0; }
+.pc-dots span { width: 9px; height: 9px; border-radius: 50%; display: block; }
+.pc-url {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--faint-5);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 9px;
+  color: var(--text-4);
+  font-family: var(--sans);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.01em;
+}
+
+.pc-body {
+  height: 169px;
+  background: var(--bg-raised);
+  position: relative;
+  overflow: hidden;
+}
+.pc-body img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Typographic fallback shown when no screenshot exists yet */
+.pc-fallback {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 20px;
+}
+.pc-fallback .pc-title {
+  font-family: var(--serif);
+  font-size: 19px;
+  color: var(--text-1);
+  letter-spacing: -0.1px;
+  line-height: 1.25;
+}
+.pc-fallback .pc-sub {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.pc-fallback .pc-host {
+  font-family: var(--mono), ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint-2);
+  margin-top: 4px;
+}
+
+/* No hover previews on touch devices or for reduced-motion users */
+@media (hover: none), (pointer: coarse) {
+  .preview-card { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preview-card { transition: none; }
+  * { scroll-behavior: auto !important; }
+}
+
+/* ── RESPONSIVE (shared) ── */
+/* Below 640px the clocks leave their fixed corner and sit on
+   their own line under the nav, so they never cover it. */
+@media (max-width: 640px) {
+  .container { padding: 0 20px 80px; }
+  .topbar { padding: 24px 0 0; gap: 10px; flex-wrap: wrap; }
+  nav { order: 1; flex: 1 1 auto; gap: 14px; }
+  .nav-links { gap: 14px; }
+  nav a { font-size: 14.5px; }
+  .monogram { margin-right: 0; font-size: 15px; }
+  .clocks {
+    position: static;
+    order: 3;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 18px;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+}
+@media (max-width: 380px) {
+  nav a { font-size: 13.5px; }
+  nav { gap: 11px; }
+  .nav-links { gap: 11px; }
+  .clocks { font-size: 10px; gap: 14px; }
+}

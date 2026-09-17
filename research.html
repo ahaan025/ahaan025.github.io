@@ -2,62 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Research — Ahaan Mehta</title>
+<title>Research · Ahaan Mehta</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --serif: 'EB Garamond', Georgia, serif;
-  --sans: 'Inter', sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, monospace;
-}
-html, body { background: #fff; color: #000; }
-body {
-  font-family: var(--sans);
-  font-size: 14.5px;
-  line-height: 1.6;
-}
-.container {
-  max-width: 780px;
-  margin: 0 auto;
-  padding: 0 36px 120px;
-}
-
-/* NAV — exact match with home */
-nav {
-  padding: 32px 0 0 0;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-.monogram {
-  font-family: var(--sans);
-  font-size: 13.5px;
-  font-weight: 500;
-  color: #000;
-  text-decoration: none;
-  margin-right: 4px;
-  padding-bottom: 2px;
-  border-bottom: 1.5px solid transparent;
-  transition: border-color 0.15s;
-}
-.monogram .slash { color: #c8c8c8; margin-right: 1px; }
-.monogram:hover { border-bottom-color: #000; }
-.nav-links { display: flex; gap: 24px; margin-left: auto; }
-nav a {
-  text-decoration: none;
-  color: #000;
-  font-size: 13.5px;
-  font-weight: 400;
-  font-family: var(--sans);
-  padding-bottom: 2px;
-  border-bottom: 1.5px solid transparent;
-  transition: border-color 0.15s;
-}
-nav a.active { font-weight: 500; border-bottom-color: #000; }
-nav a:hover { border-bottom-color: #000; }
+/* Page overrides */
+body { font-size: 14.5px; }
+.container { padding-bottom: 120px; }
 
 /* INTRO — centered, minimal */
 .intro {
@@ -69,19 +23,19 @@ nav a:hover { border-bottom-color: #000; }
   font-family: var(--serif);
   font-size: 19px;
   line-height: 1.5;
-  color: #1a1a1a;
+  color: var(--text-2);
   letter-spacing: 0.1px;
 }
 .intro p + p {
   margin-top: 14px;
-  color: #6a6459;
+  color: var(--warm-text);
   font-size: 17px;
 }
 
 .intro-divider {
   width: 36px;
   height: 1px;
-  background: #e3ddcd;
+  background: var(--warm-rule-2);
   margin: 80px auto 0;
 }
 
@@ -94,7 +48,7 @@ nav a:hover { border-bottom-color: #000; }
   font-size: 10.5px;
   font-weight: 500;
   letter-spacing: 0.18em;
-  color: #b6b1a4;
+  color: var(--warm-label);
   text-transform: uppercase;
   margin-bottom: 28px;
 }
@@ -110,7 +64,7 @@ nav a:hover { border-bottom-color: #000; }
   font-family: var(--serif);
   font-size: 14px;
   font-weight: 400;
-  color: #bdb7a7;
+  color: var(--warm-bdr);
   width: 36px;
   flex-shrink: 0;
   letter-spacing: 0.04em;
@@ -118,25 +72,25 @@ nav a:hover { border-bottom-color: #000; }
 }
 .toc .leader {
   flex: 1;
-  border-bottom: 1px dotted #d8d2c4;
+  border-bottom: 1px dotted var(--warm-dot);
   transform: translateY(-4px);
   min-width: 24px;
 }
 .toc .title {
   font-family: var(--serif);
   font-size: 16px;
-  color: #111;
+  color: var(--text-1);
   text-decoration: none;
   text-align: right;
   transition: color 0.15s ease;
 }
-.toc li:hover .title { color: #000; }
-.toc li:hover .leader { border-bottom-color: #b3ad9d; }
+.toc li:hover .title { color: var(--text); }
+.toc li:hover .leader { border-bottom-color: var(--warm-hover); }
 
 .contents-divider {
   width: 100%;
   height: 1px;
-  background: #ece8de;
+  background: var(--warm-rule-3);
   margin: 40px 0 0;
 }
 
@@ -147,7 +101,7 @@ nav a:hover { border-bottom-color: #000; }
   grid-template-columns: minmax(0,1fr) 200px;
   gap: 48px;
   padding: 44px 0;
-  border-bottom: 1px solid #f1eee5;
+  border-bottom: 1px solid var(--warm-bg-4);
   align-items: start;
   scroll-margin-top: 24px;
 }
@@ -157,7 +111,7 @@ nav a:hover { border-bottom-color: #000; }
   font-family: var(--serif);
   font-size: 11px;
   letter-spacing: 0.16em;
-  color: #c2bcae;
+  color: var(--warm-line);
   text-transform: uppercase;
   margin-bottom: 12px;
   font-variant: small-caps;
@@ -172,11 +126,11 @@ nav a:hover { border-bottom-color: #000; }
   font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #9a9489;
+  color: var(--warm-date);
   margin-bottom: 14px;
 }
-.paper-meta .k { color: #cbc6b9; margin-right: 5px; }
-.paper-meta .v { color: #6a6459; }
+.paper-meta .k { color: var(--warm-line-3); margin-right: 5px; }
+.paper-meta .v { color: var(--warm-text); }
 .paper-meta .item { white-space: nowrap; }
 
 .paper-title {
@@ -185,20 +139,20 @@ nav a:hover { border-bottom-color: #000; }
   font-weight: 500;
   line-height: 1.25;
   letter-spacing: -0.1px;
-  color: #111;
+  color: var(--text-1);
   margin-bottom: 12px;
   text-decoration: none;
   display: inline-block;
   cursor: pointer;
   transition: color 0.2s ease;
 }
-.paper-title:hover { color: #000; }
+.paper-title:hover { color: var(--text); }
 
 .paper-abstract {
   font-family: var(--serif);
   font-size: 15px;
   line-height: 1.55;
-  color: #4a4540;
+  color: var(--warm-ink-2);
   max-width: 460px;
   margin-bottom: 18px;
   letter-spacing: 0.05px;
@@ -216,18 +170,18 @@ nav a:hover { border-bottom-color: #000; }
   background: none;
   border: none;
   font: inherit;
-  color: #1a1a1a;
+  color: var(--text-2);
   cursor: pointer;
   padding: 4px 0;
   text-decoration: none;
-  border-bottom: 1px solid #d4d0c4;
+  border-bottom: 1px solid var(--warm-rule);
   transition: border-color 0.2s ease, color 0.2s ease;
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 .paper-actions button:hover,
-.paper-actions a.pa:hover { border-bottom-color: #000; color: #000; }
+.paper-actions a.pa:hover { border-bottom-color: var(--text); color: var(--text); }
 .paper-actions .arrow {
   font-size: 10px;
   transition: transform 0.2s ease;
@@ -240,7 +194,7 @@ nav a:hover { border-bottom-color: #000; }
   position: relative;
   width: 100%;
   aspect-ratio: 8.5 / 11;
-  background: #fbf9f3;
+  background: var(--warm-bg-5);
   border-radius: 2px;
   overflow: hidden;
   box-shadow:
@@ -258,7 +212,7 @@ nav a:hover { border-bottom-color: #000; }
   width: 100%;
   height: 100%;
   display: block;
-  background: #fff;
+  background: var(--bg);
 }
 .ghost .ghost-loading {
   position: absolute; inset: 0;
@@ -266,7 +220,7 @@ nav a:hover { border-bottom-color: #000; }
   font-family: var(--mono);
   font-size: 9px;
   letter-spacing: 0.16em;
-  color: #c8c2b3;
+  color: var(--warm-line-2);
   text-transform: uppercase;
 }
 .ghost::after {
@@ -304,7 +258,7 @@ nav a:hover { border-bottom-color: #000; }
   position: relative;
   width: min(900px, 100%);
   height: 100%;
-  background: #fff;
+  background: var(--bg);
   border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 40px 80px rgba(0,0,0,0.45);
@@ -316,16 +270,16 @@ nav a:hover { border-bottom-color: #000; }
   align-items: center;
   justify-content: space-between;
   padding: 12px 18px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--rule-3);
   font-family: var(--mono);
   font-size: 11px;
-  color: #6a6459;
+  color: var(--warm-text);
 }
 .lightbox-bar .lb-title {
   font-family: var(--serif);
   font-size: 14px;
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--text-2);
   letter-spacing: -0.1px;
   max-width: 70%;
   white-space: nowrap;
@@ -337,7 +291,7 @@ nav a:hover { border-bottom-color: #000; }
   font: inherit;
   background: none;
   border: none;
-  color: #6a6459;
+  color: var(--warm-text);
   cursor: pointer;
   text-decoration: none;
   padding: 4px 8px;
@@ -347,12 +301,12 @@ nav a:hover { border-bottom-color: #000; }
   font-size: 10.5px;
   letter-spacing: 0.06em;
 }
-.lightbox-bar a:hover, .lightbox-bar button:hover { background: #f3f0e9; color: #111; }
+.lightbox-bar a:hover, .lightbox-bar button:hover { background: var(--warm-bg-3); color: var(--text-1); }
 .lightbox-bar .lb-close { font-size: 18px; line-height: 1; padding: 2px 8px; }
 .lightbox-frame {
   flex: 1;
   border: none;
-  background: #f8f6f0;
+  background: var(--warm-bg-2);
 }
 
 /* RESPONSIVE */
@@ -367,19 +321,24 @@ nav a:hover { border-bottom-color: #000; }
 <body>
 <div class="container">
 
-  <!-- NAV -->
-  <nav>
-    <a href="index.html" class="monogram" aria-label="Ahaan Mehta — home"><span class="slash">/</span>am</a>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="research.html" class="active">Research</a>
-    </div>
-  </nav>
 
-  <!-- INTRO -->
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <nav>
+      <button type="button" class="monogram" data-theme-toggle aria-label="Switch between light and dark"><span class="slash pre">/</span><span class="mark">am</span><span class="slash post">/</span></button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="research.html" class="active">Research</a>
+        <a href="projects.html">Projects</a>
+        <a href="thoughts.html">Thoughts</a>
+      </div>
+    </nav>
+    <div class="clocks" aria-label="Local time in Bangalore and Providence"></div>
+  </div>
+
+<!-- INTRO -->
   <section class="intro">
     <p>An archive of papers and technical writing from the last few years.</p>
-    <p>Currently exploring bio-neural computing and algorithms for financial markets.</p>
   </section>
 
   <div class="intro-divider"></div>
@@ -442,7 +401,7 @@ nav a:hover { border-bottom-color: #000; }
           <span class="item"><span class="k">Affiliation</span><span class="v">UT Dallas</span></span>
         </div>
         <a class="paper-title" data-open="nlu">Comparing Transformer Neural Architecture to Recurrent Neural Networks for Natural Language Understanding</a>
-        <p class="paper-abstract">A systematic comparison of transformer- and RNN-based architectures on common NLU benchmarks — classification accuracy, inference cost, and scaling behaviour under limited data. Isolates where attention provides genuine inductive bias and where its gains collapse back to better-tuned recurrence.</p>
+        <p class="paper-abstract">A systematic comparison of transformer- and RNN-based architectures on common NLU benchmarks: classification accuracy, inference cost, and scaling behaviour under limited data. Isolates where attention provides genuine inductive bias and where its gains collapse back to better-tuned recurrence.</p>
         <div class="paper-actions">
           <button data-open="nlu">Quick read <span class="arrow">→</span></button>
           <a class="pa" href="papers/nlu-transformers.pdf" target="_blank" rel="noopener">PDF ↗</a>
@@ -497,7 +456,7 @@ nav a:hover { border-bottom-color: #000; }
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Paper preview">
   <div class="lightbox-card">
     <div class="lightbox-bar">
-      <div class="lb-title" id="lb-title">—</div>
+      <div class="lb-title" id="lb-title"></div>
       <div class="lb-actions">
         <a id="lb-open" href="#" target="_blank" rel="noopener">Open ↗</a>
         <button class="lb-close" id="lb-close" aria-label="Close">×</button>
@@ -611,5 +570,6 @@ nav a:hover { border-bottom-color: #000; }
   });
 })();
 </script>
+<script src="site.js"></script>
 </body>
 </html>

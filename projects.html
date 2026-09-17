@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects · Ahaan Mehta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* INTRO */
+.intro {
+  text-align: center;
+  margin: 130px auto 0;
+  max-width: 560px;
+}
+.intro p {
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--text-2);
+  letter-spacing: 0.1px;
+}
+
+.intro-divider {
+  width: 36px;
+  height: 1px;
+  background: var(--rule);
+  margin: 72px auto 0;
+}
+
+/* PROJECTS */
+.projects { margin-top: 64px; }
+.section-label {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 12px;
+}
+
+.project {
+  padding: 30px 0;
+  border-bottom: 1px solid var(--rule-4);
+}
+.project:last-child { border-bottom: none; }
+
+.project-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.project-name {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.1px;
+}
+.project-year {
+  font-size: 12px;
+  color: var(--faint-2);
+  font-family: var(--sans);
+  white-space: nowrap;
+}
+.project-desc {
+  font-size: 13.5px;
+  color: var(--text-3);
+  line-height: 1.7;
+  max-width: 560px;
+  margin-top: 8px;
+}
+.project-tech {
+  font-size: 12px;
+  color: var(--faint);
+  margin-top: 10px;
+  font-family: var(--sans);
+}
+.project-links {
+  display: flex;
+  gap: 18px;
+  margin-top: 12px;
+}
+.project-links a {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  color: var(--text-2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--faint-3);
+  padding-bottom: 1px;
+  transition: border-color 0.15s;
+}
+.project-links a:hover { border-bottom-color: var(--text); }
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .intro { margin-top: 80px; }
+  .project-header { flex-direction: column; gap: 2px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <nav>
+      <button type="button" class="monogram" data-theme-toggle aria-label="Switch between light and dark"><span class="slash pre">/</span><span class="mark">am</span><span class="slash post">/</span></button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="research.html">Research</a>
+        <a href="projects.html" class="active">Projects</a>
+        <a href="thoughts.html">Thoughts</a>
+      </div>
+    </nav>
+    <div class="clocks" aria-label="Local time in Bangalore and Providence"></div>
+  </div>
+
+<!-- INTRO -->
+  <section class="intro">
+    <p>Things I've built: experiments, tools, and the occasional rabbit hole.</p>
+  </section>
+
+  <div class="intro-divider"></div>
+
+  <!-- PROJECTS -->
+  <!-- ════════════════════════════════════════════════════
+       TO ADD A PROJECT: copy one <article class="project">
+       block, update the name, year, description, tech, and
+       links. Delete any link that doesn't apply.
+       ════════════════════════════════════════════════════ -->
+  <section class="projects">
+    <div class="section-label">Projects</div>
+
+    <article class="project">
+      <div class="project-header">
+        <div class="project-name">Othello AI</div>
+        <div class="project-year">2025</div>
+      </div>
+      <p class="project-desc">An AI agent that plays Othello using minimax with recursive game-tree search. Play against it in the browser.</p>
+      <div class="project-tech">Game-tree search · Minimax</div>
+      <div class="project-links">
+        <a href="https://othello-ai.netlify.app/" target="_blank" rel="noopener">Play ↗</a>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-header">
+        <div class="project-name">Geodesic</div>
+        <div class="project-year">2025</div>
+      </div>
+      <p class="project-desc">A Python library for visualising black holes, tracing light paths through curved spacetime to render what an observer would actually see.</p>
+      <div class="project-tech">Python · General relativity · Ray tracing</div>
+      <div class="project-links">
+        <a href="https://github.com/ahaan025/geodesic" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </article>
+
+  </section>
+</div>
+<script src="site.js"></script>
+</body>
+</html>
