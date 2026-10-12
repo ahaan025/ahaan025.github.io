@@ -83,35 +83,27 @@ h1 {
   margin-bottom: 3px;
 }
 
-/* ── TOP LINKS ── */
+/* ── TOP LINKS (icons) ── */
 .links {
   display: flex;
   gap: 22px;
-  margin: 22px 0 34px;
-  flex-wrap: wrap;
+  margin: 24px 0 34px;
   justify-content: center;
   align-items: center;
 }
-.link-item {
-  position: relative;
-  display: inline-block;
+.icon-link {
+  color: var(--faint);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  transition: color 0.18s ease, transform 0.18s ease;
 }
-.link-item a {
-  text-decoration: none;
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 13.5px;
-  font-weight: 400;
-  border-bottom: 1px solid var(--faint-3);
-  padding-bottom: 2px;
-  display: inline-block;
-  transition: border-color 0.18s, transform 0.18s ease;
-  transform-origin: center bottom;
-}
-.link-item a:hover {
-  border-color: var(--text);
-  transform: scale(1.09);
-}
+.icon-link svg { width: 17px; height: 17px; fill: currentColor; display: block; }
+/* the resume mark is drawn in strokes, so it must not take a fill */
+.icon-link svg[stroke] { fill: none; }
+.icon-link:hover { color: var(--text); transform: translateY(-1px) scale(1.12); }
 
 /* ── BIO ── */
 .bio {
@@ -320,15 +312,15 @@ section { margin-top: 56px; }
   <!-- TOP BAR -->
   <div class="topbar">
     <nav>
-      <button type="button" class="monogram" data-theme-toggle aria-label="Switch between light and dark"><span class="slash pre">/</span><span class="mark">am</span><span class="slash post">/</span></button>
+      <a href="index.html" class="monogram" aria-label="Ahaan Mehta, home"><span class="slash">/</span><span class="mark">am</span></a>
       <div class="nav-links">
-        <a href="index.html" class="active">Home</a>
-        <a href="research.html">Research</a>
+        <a href="research.html">Papers</a>
         <a href="projects.html">Projects</a>
         <a href="thoughts.html">Thoughts</a>
       </div>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.4 8.4 0 019.8 3.5a8.5 8.5 0 1010.7 10.7z"/></svg></button>
     </nav>
-    <div class="clocks" aria-label="Local time in Bangalore and Providence"></div>
+    <div class="clocks" aria-label="Local time in San Francisco and Providence"></div>
   </div>
 
 <!-- ABOVE FOLD -->
@@ -340,33 +332,22 @@ section { margin-top: 56px; }
 
     <h1>Ahaan Mehta</h1>
     <div class="meta">ahaan_mehta [at] brown [dot] edu</div>
-    <div class="meta">Computer Science, Applied Mathematics &amp; Economics</div>
+    <div class="meta">Computer Science and Applied Mathematics</div>
 
-    <!-- TOP LINKS — hover for a preview card (see site.js) -->
+    <!-- TOP LINKS — icons; hover shows a preview card (see site.js) -->
     <div class="links">
-      <div class="link-item">
-        <a href="https://github.com/ahaan025" target="_blank" rel="noopener" data-preview="github">GitHub</a>
-      </div>
-      <div class="link-item">
-        <a href="https://www.linkedin.com/in/ahaan-mehta/" target="_blank" rel="noopener" data-preview="linkedin">LinkedIn</a>
-      </div>
-      <div class="link-item">
-        <a href="https://substack.com/@ahaan025" target="_blank" rel="noopener" data-preview="substack">Substack</a>
-      </div>
-      <!-- ════════════════════════════════════════════════
-           TO UPDATE RÉSUMÉ: replace assets/resume.pdf
-           ════════════════════════════════════════════════ -->
-      <div class="link-item">
-        <a href="assets/resume.pdf" target="_blank" rel="noopener" data-preview="resume">Résumé</a>
-      </div>
+      <a class="icon-link" href="https://github.com/ahaan025" target="_blank" rel="noopener" data-preview="github" aria-label="GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+      <a class="icon-link" href="https://www.linkedin.com/in/ahaan-mehta/" target="_blank" rel="noopener" data-preview="linkedin" aria-label="LinkedIn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.11 1.4a1.71 1.71 0 11-.02 3.42 1.71 1.71 0 01.02-3.42zM1.4 6.1h3.4V15H1.4zM7 6.1h3.26v1.22h.05c.45-.86 1.56-1.77 3.22-1.77 3.44 0 4.08 2.27 4.08 5.21V15h-3.4v-3.57c0-.85-.02-1.95-1.19-1.95-1.19 0-1.37.93-1.37 1.89V15H7z"/></svg></a>
+      <!-- TO UPDATE RESUME: replace assets/resume.pdf -->
+      <a class="icon-link" href="assets/resume.pdf" target="_blank" rel="noopener" data-preview="resume" aria-label="Resume"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.3 1.6H4.2a1.3 1.3 0 00-1.3 1.3v10.2a1.3 1.3 0 001.3 1.3h7.6a1.3 1.3 0 001.3-1.3V5.4z"/><path d="M9.3 1.6v3.8h3.8M5.8 8.6h4.4M5.8 11.2h4.4"/></svg></a>
     </div>
 
     <!-- BIO -->
     <div class="bio">
-      <p>I'm a student at Brown University, working at the intersection of applied research and early-stage product development, with a focus on building and scaling 0→1 software systems. Outside of that, I think about game theory and philosophy, play soccer, and do card magic.</p>
-      <p>I split my time between home in Bangalore and school in Providence, so the top of the page holds two clocks, mostly so I know whether it's a reasonable hour to call home.</p>
-      <p>I also write, mostly to work out what I actually think. Those pieces live in <a href="thoughts.html">Thoughts</a>.</p>
-      <p>Last summer, I was a Software Engineering Intern at <strong>Dex (YC S19)</strong>.</p>
+      <p>My work sits at the intersection of applied research and early-stage product development, with a focus on building and scaling 0→1 software.</p>
+      <p>Right now I'm working on multimodal distillation for specialised production workloads.</p>
+      <p>I split my time between work in San Francisco and school in Providence, hence the two clocks, one for each half of my life right now.</p>
+      <p>I intend to spend my life doing difficult work that matters.</p>
     </div>
 
     <div class="scroll-hint">↓</div>
@@ -381,6 +362,23 @@ section { margin-top: 56px; }
     <section>
       <div class="section-label">Work</div>
       <div class="timeline-track">
+
+        <div class="tl-item">
+          <div class="tl-dot">
+            <img src="assets/zorbe.png" alt="Zorbe">
+          </div>
+          <div class="tl-main">
+            <div class="tl-header">
+              <div>
+                <a class="tl-link" href="https://zorbe.ai" target="_blank" rel="noopener" data-preview="zorbe">
+                  <span class="tl-company">Zorbe</span>
+                </a>
+              </div>
+              <div class="tl-date">October 2026 – Present</div>
+            </div>
+            <div class="tl-role">Head of Product</div>
+          </div>
+        </div>
 
         <div class="tl-item">
           <div class="tl-dot">
@@ -425,24 +423,12 @@ section { margin-top: 56px; }
       </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section>
-      <div class="section-label">Projects</div>
-      <div class="rows">
-        <div class="row"><a href="https://othello-ai.netlify.app/" target="_blank" rel="noopener" data-preview="othello">Othello AI</a><span class="dim">, a minimax agent with recursive game-tree search</span></div>
-        <!-- Geodesic has no public repo yet; add the link back once it exists:
-             <a href="https://github.com/ahaan025/geodesic" target="_blank" rel="noopener" data-preview="geodesic">Geodesic</a> -->
-        <div class="row">Geodesic<span class="dim">, a Python library for visualising black holes</span></div>
-      </div>
-    </section>
-
     <!-- EDUCATION -->
     <section>
       <div class="section-label">Education</div>
       <div class="rows">
         <div class="row tight">Brown University</div>
         <div class="row tight"><span class="dim">B.Sc., Applied Mathematics &amp; Computer Science</span></div>
-        <div class="row tight"><span class="dim">B.A., Economics</span></div>
         <div class="row tight"><span class="dim">GPA 4.0</span></div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 /* ════════════════════════════════════════════════
    site.js — shared behaviour for every page.
-   1. Live BLR / PVD clocks
+   1. Live SFO / PVD clocks
    2. Light / dark theme with a remembered choice
    3. Hover link previews in a mac-window card
    ════════════════════════════════════════════════ */
@@ -21,7 +21,7 @@
     if (!el) return;
 
     var zones = [
-      { label: 'BLR', tz: 'Asia/Kolkata'     },
+      { label: 'SFO', tz: 'America/Los_Angeles' },
       { label: 'PVD', tz: 'America/New_York' }
     ];
 
@@ -80,9 +80,8 @@
     github:   { url: 'github.com/ahaan025',          title: 'ahaan025',         sub: 'Repositories, commits, and things in progress.',
                 remote: 'https://opengraph.githubassets.com/1/ahaan025' },
     linkedin: { url: 'linkedin.com/in/ahaan-mehta',  title: 'Ahaan Mehta',      sub: 'Brown University. Software engineering.' },
-    substack: { url: 'substack.com/@ahaan025',       title: 'Notes',            sub: 'Short writing, published as it happens.',
-                remote: 'https://substackcdn.com/image/fetch/$s_!37hi!,f_auto,q_auto:best,fl_progressive:steep/https%3A%2F%2Fsubstack.com%2Fapi%2Fv1%2Fprofile%2Fassets%2F389759764%2Flight%3FaspectRatio%3Dlink%26version%3D1' },
     resume:   { url: 'ahaan_mehta_resume.pdf',       title: 'R\u00e9sum\u00e9', sub: 'One page. Updated September 2026.' },
+    zorbe:    { url: 'zorbe.ai',                      title: 'Zorbe',            sub: 'Company-owned models, distilled for one production workload.' },
     dex:      { url: 'getdex.com',                   title: 'Dex',              sub: 'YC S19. A personal CRM for your relationships.',
                 remote: 'https://getdex.com/dex_preview.png' },
     trex:     { url: 't-rexsat.com',                 title: 'T-REX',            sub: 'Time-resolved X-ray observation from low-Earth orbit.',
@@ -202,83 +201,8 @@
   }
 
 
-  /* ── 4. WORLD MAP ─────────────────────────────
-     Coastlines from assets/world.js, with the day/night
-     terminator computed from the sun's position right now.
-     No markers: it is a background, not a diagram. */
-  /* Low-precision solar position (NOAA). Returns the declination
-     and the longitude the sun is directly over, both in degrees. */
-  function subsolar(date) {
-    var rad = Math.PI / 180;
-    var d = (date.getTime() - Date.UTC(2000, 0, 1, 12, 0, 0)) / 86400000;
-    var g = (357.529 + 0.98560028 * d) * rad;
-    var q = 280.459 + 0.98564736 * d;
-    var L = (q + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)) * rad;
-    var e = (23.439 - 0.00000036 * d) * rad;
-    var dec = Math.asin(Math.sin(e) * Math.sin(L)) / rad;
-    var ra  = Math.atan2(Math.cos(e) * Math.sin(L), Math.cos(L)) / rad;
-    var gmst = (18.697374558 + 24.06570982441908 * d) % 24;
-    var lon = (((ra - gmst * 15) % 360) + 540) % 360 - 180;
-    return { dec: dec, lon: lon };
-  }
-
-  /* The terminator is every point 90 degrees from the subsolar
-     point. Per meridian that is one latitude, so the night side
-     is that curve closed off against whichever pole is dark. */
-  function terminator(sun) {
-    var rad = Math.PI / 180, pts = [], lam, phi;
-    for (var i = 0; i <= 360; i++) {
-      lam = -180 + i;
-      phi = Math.atan2(-Math.cos((lam - sun.lon) * rad), Math.tan(sun.dec * rad)) / rad;
-      pts.push([(lam + 180).toFixed(2), (90 - phi).toFixed(2)]);
-    }
-    var line = 'M' + pts.map(function (p) { return p[0] + ',' + p[1]; }).join(' ');
-    var darkY = sun.dec > 0 ? 180 : 0;      /* y of the unlit pole */
-    return { line: line, night: line + ' L360,' + darkY + ' L0,' + darkY + ' Z' };
-  }
-
-  function initWorldMap() {
-    if (!window.WORLD_LAND) return;        /* data file missing: no map */
-
-    var layer = document.createElement('div');
-    layer.className = 'worldmap';
-    layer.setAttribute('aria-hidden', 'true');
-
-
-    layer.innerHTML =
-      '<svg viewBox="0 8 360 136" preserveAspectRatio="xMidYMid slice">' +
-        '<path class="wm-land" d="' + window.WORLD_LAND + '"/>' +
-        '<path class="wm-night" d=""/>' +
-        '<path class="wm-term"  d=""/>' +
-      '</svg>';
-    document.body.insertBefore(layer, document.body.firstChild);
-
-    var night = layer.querySelector('.wm-night');
-    var term  = layer.querySelector('.wm-term');
-
-    function paint() {
-      var t = terminator(subsolar(new Date()));
-      night.setAttribute('d', t.night);
-      term.setAttribute('d', t.line);
-    }
-    paint();
-    setInterval(paint, 120000);
-  }
-
-  /* The coastline data is big and only the map needs it, so it
-     loads on its own rather than blocking the page. */
-  function loadWorld(done) {
-    var el = document.createElement('script');
-    el.src = BASE + 'assets/world.js';
-    el.async = true;
-    el.onload = done;
-    el.onerror = function () {};           /* no map, no harm */
-    document.head.appendChild(el);
-  }
-
   function init() {
     initClocks();
-    loadWorld(initWorldMap);
     initTheme();
     initPreviews();
   }

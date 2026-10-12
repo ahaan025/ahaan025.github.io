@@ -42,6 +42,7 @@
   --chrome:    #f2f2f2;
   --shadow:    rgba(0,0,0,0.12);
   --mark-bg:   #ffffff;
+  --dot:       #e2e5ea;
 
   /* warm paper tones — research / thoughts */
   --warm-ink:    #2a2620;
@@ -94,6 +95,7 @@
     --chrome:    #1f1f24;
     --shadow:    rgba(0,0,0,0.6);
     --mark-bg:   #f4f4f4;
+    --dot:       #1d1f25;
 
     --warm-ink:    #e8e3d6;
     --warm-ink-2:  #cfc9ba;
@@ -143,6 +145,7 @@
   --chrome:    #1f1f24;
   --shadow:    rgba(0,0,0,0.6);
   --mark-bg:   #f4f4f4;
+  --dot:       #1d1f25;
 
   --warm-ink:    #e8e3d6;
   --warm-ink-2:  #cfc9ba;
@@ -168,7 +171,11 @@
 html { background: var(--bg); }
 body {
   font-family: var(--sans);
-  background: transparent;   /* the sky layer sits behind this */
+  /* Faint dot grid, like ruled paper. The 1px offset keeps a dot
+     off the very corner so the grid reads as a field, not an edge. */
+  background-color: var(--bg);
+  background-image: radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 0);
+  background-size: 22px 22px;
   color: var(--text);
   font-size: 15px;
   line-height: 1.6;
@@ -196,40 +203,55 @@ nav {
   flex: 1;
   min-width: 0;
 }
+/* the whole group hugs the left; the clocks are fixed to the window */
 .monogram {
   font-family: var(--serif);
   font-size: 17px;
   font-weight: 500;
-  letter-spacing: 0;
   color: var(--text);
-  background: none;
-  border: none;
-  padding: 2px 0;
+  text-decoration: none;
   margin-right: 4px;
-  cursor: pointer;
   line-height: 1.6;
   display: inline-flex;
   align-items: baseline;
 }
 .monogram .mark { transition: letter-spacing 0.22s ease; }
 .monogram:hover .mark { letter-spacing: 0.04em; }
-.monogram .slash {
-  color: var(--faint-3);
-  transition: color 0.2s ease;
-}
+.monogram .slash { color: var(--faint-3); transition: color 0.2s ease; }
 .monogram:hover .slash { color: var(--text); }
-.monogram .pre  { margin-right: 1px; }
-.monogram .post { margin-left: 1px; display: none; }
 
-/* dark: the slash moves to the other side */
-:root[data-theme="dark"] .monogram .pre  { display: none; }
-:root[data-theme="dark"] .monogram .post { display: inline; }
+/* ── THEME SWITCH (sits in the nav, after the links) ── */
+.theme-toggle {
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--faint);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 20px;
+  flex-shrink: 0;
+  transition: color 0.18s, border-color 0.18s, transform 0.18s ease;
+}
+.theme-toggle:hover {
+  color: var(--text);
+  border-color: var(--faint-3);
+  transform: scale(1.08);
+}
+.theme-toggle svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.theme-toggle .moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .sun  { display: none; }
+:root[data-theme="dark"] .theme-toggle .moon { display: block; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .monogram .pre  { display: none; }
-  :root:not([data-theme="light"]) .monogram .post { display: inline; }
+  :root:not([data-theme="light"]) .theme-toggle .sun  { display: none; }
+  :root:not([data-theme="light"]) .theme-toggle .moon { display: block; }
 }
 
-.nav-links { display: flex; gap: 26px; margin-left: auto; }
+.nav-links { display: flex; gap: 26px; margin-left: auto; }   /* links + switch ride the right edge */
 nav a {
   text-decoration: none;
   color: var(--text);
@@ -264,59 +286,6 @@ nav a:hover  { border-bottom-color: var(--text); }
 }
 .clock-row .zone { color: var(--faint); margin-right: 8px; }
 
-
-/* ── WORLD MAP ──
-   A coastline map behind the page with the real day/night
-   terminator drawn on it, recomputed from the sun's position,
-   plus a pin on each city. Masked out through the middle so it
-   never sits under the text. Built by site.js; no JS, no map. */
-.worldmap {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-  opacity: var(--map-alpha, 0.38);
-  -webkit-mask-image: radial-gradient(ellipse 52% 60% at 50% 48%,
-    rgb(0 0 0 / 0) 0%, rgb(0 0 0 / 0) 46%, rgb(0 0 0 / 1) 98%);
-          mask-image: radial-gradient(ellipse 52% 60% at 50% 48%,
-    rgb(0 0 0 / 0) 0%, rgb(0 0 0 / 0) 46%, rgb(0 0 0 / 1) 98%);
-}
-.worldmap svg { display: block; width: 100%; height: 100%; }
-
-.wm-land  { fill: var(--map-land); stroke: var(--map-coast); stroke-width: 0.22; }
-.wm-night { fill: var(--map-night); opacity: var(--map-night-alpha, 0.34); }
-.wm-term  { fill: none; stroke: var(--map-term); stroke-width: 0.3; }
-
-:root {
-  --map-land:      #e9edf2;
-  --map-coast:     #c8d0da;
-  --map-night:     #1b2340;
-  --map-term:      #9aa6b4;
-}
-:root[data-theme="dark"] {
-  --map-alpha:       0.5;
-  --map-land:        #1b1e26;
-  --map-coast:       #2f3642;
-  --map-night:       #05060a;
-  --map-night-alpha: 0.55;
-  --map-term:        #3d4654;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --map-alpha:       0.5;
-    --map-land:        #1b1e26;
-    --map-coast:       #2f3642;
-    --map-night:       #05060a;
-    --map-night-alpha: 0.55;
-    --map-term:        #3d4654;
-  }
-}
-
-/* Phones: the map competes with the text, so pull it right back. */
-@media (max-width: 640px) {
-  .worldmap { opacity: calc(var(--map-alpha, 0.38) * 0.55); }
-}
 
 /* ── LINK PREVIEW CARD (built by site.js) ── */
 .preview-card {
